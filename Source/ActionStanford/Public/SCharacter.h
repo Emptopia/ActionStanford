@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "GameFramework/CharacterMovementComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "SCharacter.generated.h"
@@ -16,13 +17,17 @@ class ACTIONSTANFORD_API ASCharacter : public ACharacter
 {
 	GENERATED_BODY()
 
+protected:
+	UPROPERTY(EditAnywhere)
+	TSubclassOf<AActor>ProjectileClass;
+
 public:
 	// Sets default values for this character's properties
 	ASCharacter();
 
 protected:
 	UPROPERTY(VisibleAnywhere)
-	USpringArmComponent* SpringArmCom;
+	USpringArmComponent* SpringArmComp;
 	
 	UPROPERTY(VisibleAnywhere)
 	UCameraComponent* CameraComp;
@@ -30,7 +35,10 @@ protected:
 	virtual void BeginPlay() override;
 
 	void MoveForward(float Value);
-	
+
+	void MoveRight(float Value);
+
+	void PrimaryAttack();
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
